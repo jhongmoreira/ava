@@ -2,6 +2,7 @@
       include("classes/database.php");
       $curso_id = $_GET['curso'];
       $banco = new BancoDeDados; 
+      $dbAtividades = new BancoDeDados; 
       $banco->query("SELECT * FROM cursos, usuario, matricula WHERE matricula.id_usuario = usuario.id AND matricula.id_curso = cursos.id AND usuario.id = $_SESSION[idUsrS] AND cursos.id = $curso_id");
       $valor = $banco->linhas();
       foreach ($banco->result() as $dados);   
@@ -21,8 +22,7 @@
         $banco->query("SELECT * FROM usuario, cursos, modulos, matricula WHERE matricula.id_usuario = usuario.id AND matricula.id_curso = cursos.id AND modulos.curso_id = cursos.id AND usuario.id = $_SESSION[idUsrS] AND cursos.id = $_GET[curso]");
         $total = $banco->linhas();
 
-        if ($total != 0)
-        {
+        if ($total != 0){
             foreach ($banco->result() as $dados)
             {     
       ?> 
@@ -35,11 +35,22 @@
           <div id="id<?php echo $dados['numero_modulo']; ?>" class="accordion-collapse collapse" aria-labelledby="head<?php echo $dados['numero_modulo']; ?>" data-bs-parent="#id<?php echo $dados['numero_modulo']; ?>">
             <div class="accordion-body">
               <?php echo $dados['conteudo_modulo']; ?>
+              <?php 
+                $dbAtividades->query("SELECT * FROM cursos, modulos, atividades WHERE cursos.id = modulos.curso_id AND modulos.curso_id = cursos.id AND atividades.cod_curso = cursos.id AND cod_modulo = $dados[id_modulo] AND cursos.id = $_GET[curso] AND atividades.numero_modulo = $dados[numero_modulo]");
+                $totalAtividades = $dbAtividades->linhas();
+        
+                if ($totalAtividades != 0){
+                    foreach ($dbAtividades->result() as $atividades)
+                    { 
+                      echo "teste"; 
+                    }
+                  }
+              ?>
             </div>
           </div>
         </div>
         <?php
-              }
+          }
           }else
           {
               echo "Nada encontrado";
