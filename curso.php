@@ -19,7 +19,7 @@
       
       <div class="accordion" id="accordionExample">
       <?php
-        $banco->query("SELECT * FROM usuario, cursos, modulos, matricula WHERE matricula.id_usuario = usuario.id AND matricula.id_curso = cursos.id AND modulos.curso_id = cursos.id AND usuario.id = $_SESSION[idUsrS] AND cursos.id = $_GET[curso]");
+        $banco->query("SELECT * FROM usuario, cursos, modulos, matricula WHERE matricula.id_usuario = usuario.id AND matricula.id_curso = cursos.id AND modulos.curso_id = cursos.id AND usuario.id = $_SESSION[idUsrS] AND cursos.id = $curso_id");
         $total = $banco->linhas();
 
         if ($total != 0){
@@ -37,7 +37,7 @@
               <?php echo $dados['conteudo_modulo']; ?>
               <ul>
                 <?php 
-                  $dbAtividades->query("SELECT * FROM cursos, modulos, atividades WHERE atividades.cod_modulo = modulos.id_modulo AND modulos.curso_id = $dados[id] AND cursos.id = $dados[id] AND atividades.cod_modulo = $dados[numero_modulo]");
+                  $dbAtividades->query("SELECT * FROM modulos, atividades WHERE atividades.cod_modulo = modulos.id_modulo AND modulos.curso_id = $_GET[curso] AND atividades.cod_curso = $_GET[curso] AND atividades.cod_modulo = $dados[numero_modulo]");
                   $totalAtividades = $dbAtividades->linhas();
           
                   if ($totalAtividades != 0){
