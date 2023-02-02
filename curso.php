@@ -37,14 +37,14 @@
               <?php echo $dados['conteudo_modulo']; ?>
               <ul>
                 <?php 
-                  $dbAtividades->query("SELECT * FROM cursos, modulos, atividades WHERE atividades.cod_modulo = modulos.id_modulo AND modulos.curso_id = $dados[id] AND cursos.id = $dados[id]");
+                  $dbAtividades->query("SELECT * FROM cursos, modulos, atividades WHERE atividades.cod_modulo = modulos.id_modulo AND modulos.curso_id = $dados[id] AND cursos.id = $dados[id] AND atividades.cod_modulo = $dados[numero_modulo]");
                   $totalAtividades = $dbAtividades->linhas();
           
                   if ($totalAtividades != 0){
                       foreach ($dbAtividades->result() as $atividades)
                       {
                 ?>
-                    <li><a href="#">Leitura obrigatória</a></li>
+                    <li><a href="#"><?php echo $atividades["tipo"]; ?></a></li>
                 <?php
                       }
                     }
