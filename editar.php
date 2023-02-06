@@ -60,11 +60,10 @@
 
 if ($_SERVER["REQUEST_METHOD"] == 'POST')
 {
-  $num_modulo = addslashes($_POST["numModulo"]);
   $nome_modulo = addslashes($_POST["nomeModulo"]);
   $conteudo = $_POST["conteudo"];
 
-    $banco->query("UPDATE modulos SET numero_modulo = $num_modulo, nome_modulo = '$nome_modulo', conteudo_modulo = '$conteudo' WHERE id_modulo = $idModulo");
+    $banco->query("UPDATE modulos SET nome_modulo = '$nome_modulo', conteudo_modulo = '$conteudo' WHERE id_modulo = $idModulo");
 
     $total = $banco->linhas();
 
