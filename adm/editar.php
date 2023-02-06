@@ -1,3 +1,4 @@
+<h1>Editando</h1>
 <?php
   include("classes/database.php");
   $banco = new BancoDeDados;
@@ -7,33 +8,7 @@
 
     foreach ($banco->result() as $dados){};
     
-?>
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="/assets/markitup/images/style.css">
-    <!-- markItUp! skin -->
-    <link rel="stylesheet" type="text/css" href="assets/markitup/markitup/skins/markitup/style.css">
-    <!--  markItUp! toolbar skin -->
-    <link rel="stylesheet" type="text/css" href="assets/markitup/markitup/sets/default/style.css">
-    <!-- jQuery -->
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
-    <!-- markItUp! -->
-    <script type="text/javascript" src="assets/markitup/markitup/jquery.markitup.js"></script>
-    <!-- markItUp! toolbar settings -->
-    <script type="text/javascript" src="assets/markitup/markitup/sets/default/set.js"></script>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="icons/css/all.css">
-</head>
-
-<body>
-    <!--Include the JS & CSS-->
-    <link rel="stylesheet" href="richtexteditor/rte_theme_default.css" />
-    <script type="text/javascript" src="richtexteditor/rte.js"></script>
-    <script type="text/javascript" src='richtexteditor/plugins/all_plugins.js'></script>
-    
+?> 
     <div class="container-fluid">
         <form method="post">
             <div class="form-group">
@@ -53,7 +28,7 @@
             </script>
             </div>
     
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="submit" class="btn btn-primary mb-5">Enviar</button>
 
         </form>
         <?php
@@ -62,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST')
 {
   $nome_modulo = addslashes($_POST["nomeModulo"]);
   $conteudo = $_POST["conteudo"];
+  $moduloAtual = $idModulo;
 
     $banco->query("UPDATE modulos SET nome_modulo = '$nome_modulo', conteudo_modulo = '$conteudo' WHERE id_modulo = $idModulo");
 
@@ -70,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST')
     if ($total != 0)
     {
         echo "<div class='alert alert-info'>Registro atualizado com sucesso</div>";
+        echo "<meta http-equiv='refresh' content='1;URL=index.php?pg=3&modulo=".$moduloAtual."'/>";
     }else
     {
         echo "<div class='alert alert-danger'>Impossível editar dados.</div>";
