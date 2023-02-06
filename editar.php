@@ -1,6 +1,12 @@
 <?php
   include("classes/database.php");
   $banco = new BancoDeDados;
+  $idModulo = $_GET['modulo'];
+  $banco->query("SELECT * FROM modulos where id_modulo = $idModulo");
+  $total = $banco->linhas();
+
+    foreach ($banco->result() as $dados){};
+    
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,33 +37,15 @@
     <div class="container-fluid">
         <form method="post">
             <div class="form-group">
-                <label for="idCurso">Curso:</label>
-                <select name="idCurso" id="idcurso" class="form-control">
-                    <?php
-                        $banco->query("SELECT * FROM cursos");
-                        $total = $banco->linhas();
-
-                        if ($total != 0){
-                            foreach ($banco->result() as $dados)
-                            {     
-                    ?> 
-                    <option value="<?php echo $dados['id'];?>"><?php echo $dados['nome_curso'];?></option>
-                    <?php
-                            }
-                        }
-                    ?>
-                </select>
-            </div>
-            <div class="form-group">
                 <label for="numModulo">Número do Módulo</label>
-                <input type="text" class="form-control" id="numModulo" name="numModulo">
+                <input type="text" class="form-control" id="numModulo" name="numModulo" value="<?php echo $dados["numero_modulo"]; ?>">
             </div>
             <div class="form-group">
                 <label for="nomeModulo">Nome do Módulo</label>
-                <input type="text" class="form-control" id="nomeModulo" name="nomeModulo">
+                <input type="text" class="form-control" id="nomeModulo" name="nomeModulo" value="<?php echo $dados["nome_modulo"]; ?>">
             </div>
             <div class="form-group mt-2 mb-2">
-            <textarea id="div_editor1" name="conteudo"></textarea>
+            <textarea id="div_editor1" name="conteudo" value="<?php echo $dados['conteudo_modulo']; ?>"></textarea>
             <script>
                 var editor1 = new RichTextEditor("#div_editor1");
             </script>
@@ -70,21 +58,20 @@
 
 if ($_SERVER["REQUEST_METHOD"] == 'POST')
 {
-  $id_curso = addslashes($_POST["idCurso"]);
   $num_modulo = addslashes($_POST["numModulo"]);
   $nome_modulo = addslashes($_POST["nomeModulo"]);
-  $conteudo = addslashes($_POST["conteudo"]);
+  $conteudo = $_POST["conteudo"];
 
-    $banco->query("INSERT INTO modulos VALUES('', '$id_curso', '$num_modulo', '$nome_modulo', '$conteudo')");
+    $banco->query("UPDATE modulos SET numero_modulo = $num_modulo, nome_modulo = '$nome_modulo', conteudo_modulo = '$conteudo' WHERE id_modulo = $idModulo");
 
     $total = $banco->linhas();
 
     if ($total != 0)
     {
-        echo "<div class='alert alert-info'>Registro inserido com sucesso</div>";
+        echo "<div class='alert alert-info'>Registro atualizado com sucesso</div>";
     }else
     {
-        echo "<div class='alert alert-danger'>Impossível inserir dados.</div>";
+        echo "<div class='alert alert-danger'>Impossível editar dados.</div>";
     }
 }
 ?>
