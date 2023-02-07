@@ -15,6 +15,7 @@ $banco = new BancoDeDados;
     <title>Líder+ - Educa Online</title>
     <link href="css/principal.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="icons/css/all.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 

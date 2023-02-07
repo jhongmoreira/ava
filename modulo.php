@@ -19,6 +19,8 @@
     </div>
   </div>
 
+  <hr>
+
   <?php
       $banco->query("SELECT * FROM usuario, cursos, modulos, matricula WHERE matricula.id_usuario = usuario.id AND matricula.id_curso = cursos.id AND modulos.curso_id = cursos.id AND usuario.id = $_SESSION[idUsrS] AND cursos.id = $curso_id AND modulos.id_modulo = $moduloId");
       $total = $banco->linhas();
@@ -38,4 +40,14 @@
         ?>
     </div>    
   </div>
+
+  <hr>
+
+  <div class="row mt-2">
+    <div class="col-md-4">
+      <a href="index.php?pg=1&curso=<?php echo $curso_id; ?>"><button class="btn btn-success"><i class="fa-solid fa-backward"></i> Voltar</button></a>
+    </div>
+  </div>
+
 </div>
+
