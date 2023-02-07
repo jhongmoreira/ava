@@ -24,6 +24,10 @@ class Pagina
       case 1:
         include "./curso.php";
         break;
+
+      case 3:
+        include "./modulo.php";
+        break;
   }
 }
 }
