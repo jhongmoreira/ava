@@ -23,12 +23,12 @@
             foreach ($banco->result() as $dados)
             {   
         ?> 
-            <div class="col-md-3 card">
+            <div class="col-md-6 card">
                 <img class="card-img-top" src="<?php echo $dados['imagem']; ?>" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title"><?php echo $dados['nome_curso']; ?></h5>
                     <p class="card-text"><?php echo $dados['descricao']; ?></p>
-                    <a href="index.php?pg=1&curso=<?php echo $dados['id_curso'];?>" class="btn btn-primary">Acessar</a>
+                    <a href="index.php?pg=1&curso=<?php echo $dados['id_curso'];?>" class="btn btn-secondary">Acessar</a>
                 </div>
             </div>
             <?php
