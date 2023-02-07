@@ -27,7 +27,7 @@
           foreach ($banco->result() as $dados)
           {     
   ?> 
-    <div class="col-md-4 mb-2">
+    <div class="col-md-4 mb-4">
       <div class="jumbotron modulos-lista">
         <h2><?php echo $dados['nome_modulo']; ?></h2>
         <p>Módulo <?php echo $dados['numero_modulo']; ?></p>
